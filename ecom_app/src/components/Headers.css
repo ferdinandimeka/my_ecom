@@ -1,0 +1,10 @@
+i.fas.fa-shopping-cart {
+  padding: 0.2rem;
+  background-color: #fff;
+}
+
+.cartAmount {
+    background-color: black;
+    padding: 0.1rem;
+    color: #fff;
+}
