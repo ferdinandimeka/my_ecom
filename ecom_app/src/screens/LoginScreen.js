@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import { Row, Col, Button, Form} from 'react-bootstrap'
-import Message from '../Message'
+import Message from '../components/Message'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { login } from '../../actions/userActions'
-import FormContainer from '../FormContainer'
+import { login } from '../Redux/actions/userActions'
+import FormContainer from '../components/FormContainer'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
 
 function LoginScreen() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
+
     const dispatch = useDispatch()
     const history = useNavigate()
 

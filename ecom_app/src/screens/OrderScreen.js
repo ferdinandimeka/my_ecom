@@ -10,7 +10,7 @@ import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { PayPalButton } from "react-paypal-button-v2";
 
 /* COMPONENTS */
-import Message from "../Message";
+import Message from "../components/Message";
 import LoaderCardTwo from "../loaders/LoaderCardTwo";
 
 /* REACT - REDUX */
@@ -21,24 +21,23 @@ import {
   getOrderDetails,
   payOrder,
   deliverOrder,
-} from "../../actions/orderActions";
+} from "../Redux/actions/orderActions";
 
 /* ACTION TYPES */
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
-} from "../../constants/orderConstants";
+} from "../Redux/constants/orderConstants";
 
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { PRODUCT_DETAILS_SUCCESS } from "../../constants/productConstants";
+// import { PRODUCT_DETAILS_SUCCESS } from "../../constants/productConstants";
 
 function OrderScreen() {
 
     const history = useNavigate();
     const dispatch = useDispatch();
     const order_Id = useParams().id;
-    console.log(order_Id)
 
     const [sdkReady, setSdkReady] = useState(false);
 
@@ -62,51 +61,56 @@ function OrderScreen() {
         if (order.orderItems && Array.isArray(order.orderItems)) {
             order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2);
         }
-    }    
-
-    /** PAYPAL BUTTONS */
-    const addPayPalScript = () => {
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
-        script.async = true;
-        script.onload = () => {
-            setSdkReady(true);
-        }
-        document.body.appendChild(script);
-    }
+    } 
 
     useEffect(() => {
-        /** IF USER IS NOT LOGGED IN, REDIRECT TO LOGIN */
-        if(!userInfo) {
+
+        let script;
+        const scriptLoaded = document.getElementById('paypal-sdk-script');
+        /** PAYPAL BUTTONS */
+        if (!scriptLoaded) {
+            const script = document.createElement("script");
+            script.id = "paypal-sdk-script";
+            script.type = "text/javascript";
+            script.src = "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
+            script.async = true;
+            script.onload = () => {
+                setSdkReady(true);
+            }
+            document.body.appendChild(script);
+        } else {
+            setSdkReady(true);
+          }
+
+        // // Load PayPal script if needed
+        // if (!paypalScriptLoaded.current) {
+        //     addPayPalScript();
+        // } else {
+        //     setSdkReady(true);
+        // }
+
+        return () => {
+            // Cleanup script on component unmount
+            if (script) {
+              document.body.removeChild(script);
+            }
+          };
+    },[]);
+
+    useEffect(() => {
+
+         /** IF USER IS NOT LOGGED IN, REDIRECT TO LOGIN */
+         if(!userInfo) {
             history('/login')
         }
 
         /** CHECK IF THERE IS AN ORDER, IF NOT DISPATCH AN ACTION TO GET ORDER DETAILS */
-        if(!order || successPay || successDeliver || order._id !== Number(order_Id)) {
-            dispatch({
-                type: ORDER_PAY_RESET,
-            })
-
-            dispatch({
-                type: ORDER_DELIVER_RESET
-            })
-
-            dispatch(getOrderDetails(order_Id));
-        } else if(!order.isPaid) {
-            /** ACTIVATE PAYPAL */
-            if (!window.paypal) {
-                addPayPalScript();
-            } else {
-                setSdkReady(true);
-            }
+        if (!order || successPay || successDeliver || order._id !== Number(order_Id)) {
+          dispatch({ type: ORDER_PAY_RESET });
+          dispatch({ type: ORDER_DELIVER_RESET });
+          dispatch(getOrderDetails(order_Id));
         }
-
-        dispatch({
-            type: PRODUCT_DETAILS_SUCCESS
-        })
-
-    },[dispatch, order, order_Id, successPay, successDeliver, history, userInfo]);
+    }, [dispatch, order, order_Id, successPay, successDeliver, history, userInfo]);
 
     /** HANDLERS */
     const successPaymentHandler = (paymentResult) => {
@@ -175,11 +179,11 @@ function OrderScreen() {
 
                     <ListGroup.Item>
                         <h2>Order Items</h2>
-                        {order.OrderItems.length === 0 ? (
+                        {order && order.OrderItems?.length === 0 ? (
                             <Message>Order is empty</Message>
                         ) : (
                             <ListGroup variant="flush">
-                                {order.OrderItems.map((item, index) => (
+                                {order.orderItems?.map((item, index) => (
                                     <ListGroup.Item key={index}>
                                         
                                         <Row>

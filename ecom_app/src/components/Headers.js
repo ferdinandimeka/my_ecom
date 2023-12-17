@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import '../styles/Headers.css'
-import { logout } from '../actions/userActions'
+import { logout } from '../Redux/actions/userActions'
 import { NavDropdown,  } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import './Headers.css'
@@ -40,7 +40,6 @@ function Headers() {
                         <LinkContainer to='/'>
                             <Nav.Link><i className='fas fa-home'></i>{' '}Home</Nav.Link>
                         </LinkContainer>
-
                         <LinkContainer to='/cart'>
                             <Nav.Link><i className='fas fa-shopping-cart'></i>
                             <span className='cartAmount'>

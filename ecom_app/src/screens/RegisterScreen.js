@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Row, Col, Button, Form} from 'react-bootstrap'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
-import Message from '../Message'
+import Message from '../components/Message'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { register } from '../../actions/userActions'
-import FormContainer from '../FormContainer'
+import { register } from '../Redux/actions/userActions'
+import FormContainer from '../components/FormContainer'
 
 function RegisterScreen() {
 

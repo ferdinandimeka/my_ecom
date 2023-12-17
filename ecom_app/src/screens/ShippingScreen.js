@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import FormContainer from '../FormContainer'
-import Checkout from '../Checkout'
+import FormContainer from '../components/FormContainer'
+import Checkout from '../components/Checkout'
 import { useDispatch, useSelector } from 'react-redux'
-import { saveShippingAddress } from '../../actions/cartActions'
+import { saveShippingAddress } from '../Redux/actions/cartActions'
 import { useNavigate } from 'react-router-dom'
 
 export default function ShippingScreen() {

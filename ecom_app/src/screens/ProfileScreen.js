@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { Row, Col, Button, Form, Table } from 'react-bootstrap'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
-import Message from '../Message'
+import Message from '../components/Message'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { getProfile, updateProfile } from '../../actions/userActions'
+import { getProfile, updateProfile } from '../Redux/actions/userActions'
 import { LinkContainer } from 'react-router-bootstrap'
-import { listMyOrders } from '../../actions/orderActions'
+import { listMyOrders } from '../Redux/actions/orderActions'
 
 function ProfileScreen() {
     /* states */

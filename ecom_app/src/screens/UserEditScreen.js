@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
-import Loader from '../Message'
-import FormContainer from '../FormContainer'
-import Message from '../Message'
+import Loader from '../components/Message'
+import FormContainer from '../components/FormContainer'
+import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getProfile, updateUser } from '../../actions/userActions'
-import { USER_UPDATE_RESET } from '../../constants/userConstants'
+import { getProfile, updateUser } from '../Redux/actions/userActions'
+import { USER_UPDATE_RESET } from '../Redux/constants/userConstants'
 
 function UserEditScreen() {
 

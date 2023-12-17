@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
-// import { useParams } from 'react-router-dom'
-import ProductCarousel from '../ProductCarousel'
+import ProductCarousel from '../components/ProductCarousel'
 import LoaderCardOne from '../loaders/LoaderCardOne'
-import Message from '../Message'
+import Message from '../components/Message'
 import { Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProducts } from '../../actions/productActions'
-import Products from '../Products'
+import { listProducts } from '../Redux/actions/productActions'
+import Products from '../components/Products'
+import { useParams } from 'react-router-dom';
 
 function Homescreen() {
 
@@ -16,15 +16,16 @@ function Homescreen() {
     const productList = useSelector(state => state.productList)
     const { loading, error, products } = productList
 
+    const keyword = useParams().id
+
     // dispatch ProductList action
     useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch])
+        dispatch(listProducts(keyword))
+    }, [dispatch, keyword])
 
   return (
     <div>
         {<ProductCarousel />}
-        {/* {<Swipers />} */}
 
         <h1 className='text-center'>Latest Products</h1>
         {loading ? (

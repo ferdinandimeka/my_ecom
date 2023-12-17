@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
-import { listAllOrders, deleteOrder } from '../../actions/orderActions'
+import { listAllOrders, deleteOrder } from '../Redux/actions/orderActions'
 import { Table, Button } from 'react-bootstrap'
-import Message from '../Message'
+import Message from '../components/Message'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
 
 

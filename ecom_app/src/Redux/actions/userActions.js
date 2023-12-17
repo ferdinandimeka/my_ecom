@@ -209,6 +209,7 @@ import {
     
             /** Api call to get the users list */
             const { data } = await axios.get(`api/users/`, config)
+            console.log(data)
     
             dispatch({
                 type: USER_LIST_SUCCESS,

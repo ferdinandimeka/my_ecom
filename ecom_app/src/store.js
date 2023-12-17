@@ -1,19 +1,19 @@
 import { applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { productListReducer, productDetailsReducer } from "./reducers/productReducers";
+import { productListReducer, productDetailsReducer } from "./Redux/reducers/productReducers";
 import { legacy_createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { productCreateReducer, productDeleteReducer, productTopReducer,
         productReviewCreateReducer, productUpdateReducer
-    } from './reducers/productReducers'
+    } from './Redux/reducers/productReducers'
     import { userDeleteUser, userLoginReducers, userUpdateReducer,
     userRegisterReducers, userProfileReducers, userUpdateProfileReducers,
-    userListReducer } from './reducers/userReducers'
+    userListReducer } from './Redux/reducers/userReducers'
 import { orderMakeReducer, orderDetailsReducer, orderPayReducer, 
         orderDeliverReducer, orderListReducer, 
         orderAllListReducer, orderDeleteReducer 
-    } from './reducers/orderReducers'
-import { cartReducers } from "./reducers/cartReducers";
+    } from './Redux/reducers/orderReducers'
+import { cartReducers } from "./Redux/reducers/cartReducers";
 
 const reducer = combineReducers({
     productList: productListReducer,

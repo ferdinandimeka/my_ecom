@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, removeFromCart } from '../../actions/cartActions'
+import { addToCart, removeFromCart } from '../Redux/actions/cartActions'
 import { useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Card, Button, Form, Image } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom'
-import  Message  from '../Message'
+import  Message  from '../components/Message'
 
 function CartScreen() {
 

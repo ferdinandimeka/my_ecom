@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Form, Col } from 'react-bootstrap'
-import FormContainer from '../FormContainer'
-import Checkout from '../Checkout'
+import FormContainer from '../components/FormContainer'
+import Checkout from '../components/Checkout'
 import { useDispatch, useSelector } from 'react-redux'
-import { savePaymentMethod } from '../../actions/cartActions'
+import { savePaymentMethod } from '../Redux/actions/cartActions'
 import { useNavigate } from 'react-router-dom'
 
 export default function PaymentScreen() {
@@ -40,6 +40,17 @@ export default function PaymentScreen() {
                         type='radio'
                         label='PayPal or Credit Card'
                         id='paypal'
+                        name='paymentMethod'
+                        checked
+                        onChange={(event) => setPaymentMethod(event.target.value)}
+                    ></Form.Check>
+                </Col>
+
+                <Col>
+                    <Form.Check
+                        type='radio'
+                        label='stripe'
+                        id='stripe'
                         name='paymentMethod'
                         checked
                         onChange={(event) => setPaymentMethod(event.target.value)}

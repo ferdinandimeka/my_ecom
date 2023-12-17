@@ -2,10 +2,10 @@ import React, { useEffect }from 'react'
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import LoaderCardTwo from '../loaders/LoaderCardTwo';
-import Message from "../../components/Message";
+import Message from "../components/Message";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers, deleteUser } from "../../actions/userActions";
+import { listUsers, deleteUser } from "../Redux/actions/userActions";
 
 export default function UserListScreen() {
 

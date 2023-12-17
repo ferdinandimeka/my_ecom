@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
-import Rating from '../Rating'
-import Message from '../Message'
+import Rating from '../components/Rating'
+import Message from '../components/Message'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails } from '../../actions/productActions'
+import { listProductDetails } from '../Redux/actions/productActions'
 import { useParams } from 'react-router-dom'
-import { PRODUCT_CREATE_REVIEW_RESET } from '../../constants/productConstants'
-import { createProductReview } from '../../actions/productActions'
+import { PRODUCT_CREATE_REVIEW_RESET } from '../Redux/constants/productConstants'
+import { createProductReview } from '../Redux/actions/productActions'
 
 function ProductScreen() {
 
@@ -57,7 +57,7 @@ function ProductScreen() {
       }
 
         dispatch(listProductDetails(id))
-    }, [dispatch, id, successProductReview])
+    }, [dispatch, id, successProductReview, history])
 
   return (
     <div>

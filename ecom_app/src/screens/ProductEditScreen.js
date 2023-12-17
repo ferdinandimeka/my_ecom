@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import  FormContainer from '../FormContainer'
+import  FormContainer from '../components/FormContainer'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails, updateProduct } from '../../actions/productActions'
+import { listProductDetails, updateProduct } from '../Redux/actions/productActions'
 import axios from 'axios'
 import { Button, Form } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
-import Message from '../Message'
+import { PRODUCT_UPDATE_RESET } from '../Redux/constants/productConstants'
+import Message from '../components/Message'
 
 function ProductEditScreen() {
     /** gettting the user id from url */

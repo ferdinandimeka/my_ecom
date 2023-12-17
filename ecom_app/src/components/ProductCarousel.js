@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProducts } from '../actions/productActions'
+import { listProducts } from '../Redux/actions/productActions'
 import { Carousel, Image } from 'react-bootstrap'
-import LoaderCardOne from './loaders/LoaderCardOne'
+import LoaderCardOne from '../loaders/LoaderCardOne'
 import Message from './Message'
 
 function ProductCarousel() {

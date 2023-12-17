@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 
 /** Components */
-import Checkout from '../Checkout'
-import Message from '../Message'
+import Checkout from '../components/Checkout'
+import Message from '../components/Message'
 
 /** Action Types */
-import { ORDER_MAKE_RESET } from '../../constants/orderConstants'
+import { ORDER_MAKE_RESET } from '../Redux/constants/orderConstants'
 
 /** Action Creators */
-import { makeOrder } from '../../actions/orderActions'
+import { makeOrder } from '../Redux/actions/orderActions'
 
 
 export default function PlaceOrderScreen() {

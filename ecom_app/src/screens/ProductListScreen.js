@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button, Table, Col, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import Message from '../Message'
+import Message from '../components/Message'
 import LoaderCardTwo from '../loaders/LoaderCardTwo'
-import Paginator from '../Paginator'
+import Paginator from '../components/Paginator'
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts, createProduct, deleteProduct } from '../../actions/productActions';
-import { PRODUCT_CREATE_RESET } from '../../constants/productConstants';
+import { listProducts, createProduct, deleteProduct } from '../Redux/actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../Redux/constants/productConstants';
 
 function ProductListScreen() {
 
