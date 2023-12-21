@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import ProductCarousel from '../components/ProductCarousel'
 import LoaderCardOne from '../loaders/LoaderCardOne'
+import Paginator from '../components/Paginator'
 import Message from '../components/Message'
 import { Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +15,7 @@ function Homescreen() {
 
     // getting the productList state from the redux store
     const productList = useSelector(state => state.productList)
-    const { loading, error, products } = productList
+    const { loading, error, products, pages, page } = productList
 
     const keyword = useParams().id
 
@@ -33,19 +34,21 @@ function Homescreen() {
         ) : error ? (
             <Message variant='danger'>{error}</Message>
         ) : (
-            <Row>
-                {Array.isArray(products) ? (
-                products.map(product => (
-                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                        <Products product={product}/>
-                    </Col>
-                ))
-                ) : (
-                    <Message variant='info'>No products available.</Message>
-                )}
-            </Row>
+            <div>
+                <Row>
+                    {Array.isArray(products) ? (
+                    products.map(product => (
+                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                            <Products product={product}/>
+                        </Col>
+                    ))
+                    ) : (
+                        <Message variant='info'>No products available.</Message>
+                    )}
+                </Row>
+            </div>
         )}
-
+            <Paginator pages={pages} page={page} keyword={keyword} />
     </div>
   )
 }
