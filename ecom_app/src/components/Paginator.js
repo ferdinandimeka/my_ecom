@@ -1,35 +1,44 @@
 import React from 'react'
-import { Pagination } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+/* REACT BOOTSTRAP */
+import { Pagination } from "react-bootstrap";
 
-function Paginator({ page, pages, keyword = '', isAdmin = false }) {
-    // ONLY IN ADMIN ProductList PAGE IT WILL BE SET TO TRUE
-    
-    const queryParams = new URLSearchParams(window.location.search);
+/* REACT ROUTER BOOTSTRAP */
+import { LinkContainer } from "react-router-bootstrap";
 
-    if (queryParams.has('keyword')) {
-    keyword = queryParams.get('keyword');
-    }
+function Paginator({ page, pages, keyword = "", isAdmin = false }) {
+  /* isAdmin IS SET TO FALSE BY DEFAULT, ONLY IN ADMIN ProductList PAGE IS WILL BE SET TO TRUE */
 
+  // Check if keyword is a string before using split
+  if (typeof keyword === 'string') {
+    keyword = keyword.split("?keyword=")[1]?.split("&")[0] || '';
+  } else {
+    keyword = '';
+  }
 
-    console.log('keyword', keyword)
 
   return (
     pages > 1 && (
         <Pagination>
-            {[...Array(pages).keys()].map((x) => {
-                const linkTo = !isAdmin
-                ? { pathname: '/', search: `?keyword=${keyword}&page=${x + 1}`}
-                : { pathname: '/productlist/', search: `?keyword=${keyword}&page=${x + 1}`}   
-                
-                return (
-                    <LinkContainer key={x + 1} to={linkTo}>
-                        <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
-                    </LinkContainer>
-                )
-            })}
+          {[...Array(pages).keys()].map((x) => (
+            <LinkContainer
+              key={x + 1}
+              to={
+                !isAdmin
+                ? {
+                    pathname: '/',
+                    search: `?keyword=${encodeURIComponent(keyword)}&page=${x + 1}`,
+                  }
+                : {
+                    pathname: '/admin/productlist/',
+                    search: `?keyword=${encodeURIComponent(keyword)}&page=${x + 1}`,
+                  }
+              }
+            >
+              <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
+            </LinkContainer>
+          ))}
         </Pagination>
-    )
+      )
   )
 }
 
