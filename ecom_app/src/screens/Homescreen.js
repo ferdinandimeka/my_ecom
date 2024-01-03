@@ -28,7 +28,7 @@ function Homescreen() {
     useEffect(() => {
         dispatch(listProducts(keyword))
         history(keyword)
-    }, [dispatch, keyword])
+    }, [dispatch, keyword, history])
 
   return (
     <div>

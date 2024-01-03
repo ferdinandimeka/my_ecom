@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 /* REACT ROUTER */
 import { Link } from "react-router-dom";
@@ -39,7 +39,7 @@ function OrderScreen() {
     const dispatch = useDispatch();
     const order_Id = useParams().id;
 
-    const [sdkReady, setSdkReady] = useState(false);
+    // const [sdkReady, setSdkReady] = useState(false);
 
     /** PULLS ORDER DETAILS STATE FROM REDUX STORE */
     const orderDetails = useSelector((state) => state.orderDetails);
@@ -63,39 +63,39 @@ function OrderScreen() {
         }
     } 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        let script;
-        const scriptLoaded = document.getElementById('paypal-sdk-script');
-        /** PAYPAL BUTTONS */
-        if (!scriptLoaded) {
-            const script = document.createElement("script");
-            script.id = "paypal-sdk-script";
-            script.type = "text/javascript";
-            script.src = "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
-            script.async = true;
-            script.onload = () => {
-                setSdkReady(true);
-            }
-            document.body.appendChild(script);
-        } else {
-            setSdkReady(true);
-          }
+    //     let script;
+    //     const scriptLoaded = document.getElementById('paypal-sdk-script');
+    //     /** PAYPAL BUTTONS */
+    //     if (!scriptLoaded) {
+    //         const script = document.createElement("script");
+    //         script.id = "paypal-sdk-script";
+    //         script.type = "text/javascript";
+    //         script.src = "https://www.paypal.com/sdk/js?client-id=AcYkGqSOj8HO2-vhLKpeXyT3XN2EyWL-pjmAtDyccAZJ6jXwazZ7MeD3pe6zUzJu4js33rMnvSs50VWT&components=buttons";
+    //         script.async = true;
+    //         script.onload = () => {
+    //             setSdkReady(true);
+    //         }
+    //         document.body.appendChild(script);
+    //     } else {
+    //         setSdkReady(true);
+    //       }
 
-        // // Load PayPal script if needed
-        // if (!paypalScriptLoaded.current) {
-        //     addPayPalScript();
-        // } else {
-        //     setSdkReady(true);
-        // }
+    //     // // Load PayPal script if needed
+    //     // if (!paypalScriptLoaded.current) {
+    //     //     addPayPalScript();
+    //     // } else {
+    //     //     setSdkReady(true);
+    //     // }
 
-        return () => {
-            // Cleanup script on component unmount
-            if (script) {
-              document.body.removeChild(script);
-            }
-          };
-    },[]);
+    //     return () => {
+    //         // Cleanup script on component unmount
+    //         if (script) {
+    //           document.body.removeChild(script);
+    //         }
+    //       };
+    // },[]);
 
     useEffect(() => {
 
@@ -113,8 +113,11 @@ function OrderScreen() {
     }, [dispatch, order, order_Id, successPay, successDeliver, history, userInfo]);
 
     /** HANDLERS */
-    const successPaymentHandler = (paymentResult) => {
+    const successPaymentHandler = (paymentResult, data) => {
         dispatch(payOrder(order, paymentResult));
+        alert('Payment Successfully paid by ' + paymentResult.payer.name.given_name + ' ' + paymentResult.payer.name.surname + '')
+
+        console.log({ paymentResult, data })
     }
 
     const deliverHandler = () => {
@@ -254,8 +257,12 @@ function OrderScreen() {
                         {!order.isPaid && (
                             <ListGroup.Item>
                                 {loadingPay && <LoaderCardTwo />}
-                                {!sdkReady ? <LoaderCardTwo /> : (
+                                {'' ? <LoaderCardTwo /> : (
                                     <PayPalButton
+                                        options={{
+                                            clientId: "AfMC4DsRm_MK-dTdqe2LraBSYpg_IYhmc5lFOzoiIGfSsaGS_4dGE7LIURRqS87jB9-uFYSc2SKgPObe",
+                                            currency: "USD",
+                                        }}
                                         amount={order.totalPrice}
                                         onSuccess={successPaymentHandler}
                                     />
